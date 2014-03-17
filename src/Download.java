@@ -10,15 +10,17 @@ import java.net.URL;
 public class Download {
     public static void main (String [] agrs) throws IOException {
         String StringLink;
+        int countNameFiles = 1;
         BufferedReader br = new BufferedReader(new FileReader("links.txt"));                         // reads links from file
 
         while ((StringLink = br.readLine())!=null){
-            File writeFile = new File("newfile.jpg");
-            if (writeFile.createNewFile()){
-                System.out.println("File is created");
-            }
+
+//            File writeFile = new File("newfile" + countNameFiles++ + ".jpg");
+//            if (writeFile.createNewFile()){
+//                System.out.println("File is created");
+//            }
             String link = StringLink;
-            String outFile = "newfile.jpg";
+            String outFile = "newfile_" + countNameFiles++ +".png";
             saveImage(link, outFile);
 
         }
