@@ -54,6 +54,6 @@ public class Download {
         { System.out.println("link #" + countLinks+ " is unavailable" );}
     }
 }
-/////
+//////
 
 
