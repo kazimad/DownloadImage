@@ -54,22 +54,6 @@ public class Download {
         { System.out.println("link #" + countLinks+ " is unavailable" );}
     }
 }
-///////
 
 
 
-
-//    }
-//            BufferedReader brlink = new BufferedReader(new InputStreamReader(link.openStream()));
-
-//    BufferedImage value = null;
-//    URL link = new URL(StringLink);
-//
-//    value = ImageIO.read(link);
-//    File writeFile = new File("newfile.jpg");
-//    if (writeFile.createNewFile()){
-//        System.out.println("File is created");
-//    }
-//    ImageIO.write(value,"jpg",writeFile);
-//    System.out.println("File is written");
-//}
