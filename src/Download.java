@@ -17,31 +17,31 @@ public class Download {
         while ((StringLink = br.readLine())!=null){
 
 
-        String outFile = ("newfile_" + countNameFiles++ + ".jpg");
-        saveImage(StringLink, outFile,countLinks);
-        countLinks++;
+            String outFile = ("newfile_" + countNameFiles++ + ".jpg");
+            saveImage(StringLink, outFile,countLinks);
+            countLinks++;
 
-         }
+        }
         System.out.println("all done!");
     }
 
     private static void saveImage(String link, String outFile, int countLinks) throws IOException {
 
         try {
-        URL url = new URL(link);
-        InputStream is = url.openStream();
-        OutputStream os = new FileOutputStream(outFile);
+            URL url = new URL(link);
+            InputStream is = url.openStream();
+            OutputStream os = new FileOutputStream(outFile);
 
 
-        int length;
+            int length;
 
-        while ((length = is.read()) != -1) {
-            os.write(length);
-        }
+            while ((length = is.read()) != -1) {
+                os.write(length);
+            }
 
-        is.close();
-        os.close();
-        System.out.println("File # " + countLinks + " is written");
+            is.close();
+            os.close();
+            System.out.println("File # " + countLinks + " is written");
         }
         catch (UnknownHostException q){
             System.out.println("link #" + countLinks+ " is unavailable" );
@@ -49,7 +49,7 @@ public class Download {
         }
         catch (SocketException qq) {
             System.out.println("link #" + countLinks+ " is unavailable" );
-    }
+        }
         catch (Exception qqq)
         { System.out.println("link #" + countLinks+ " is unavailable" );}
     }
