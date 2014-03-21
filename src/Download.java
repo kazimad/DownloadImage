@@ -24,14 +24,15 @@ public class Download {
             stringLinkQueue.add(StringLink);
         }
 
-
-        while (!stringLinkQueue.isEmpty()){
+        while (true){
+        if (!stringLinkQueue.isEmpty()){
             DownloadThreads.linkDownload =  stringLinkQueue.take();           // transmits link to DownloadThreads
-
-                myThread1.run();
+            DownloadThreads myThread1 = new DownloadThreads();
+                myThread1.start();
 
         }
-
+            else break;
+        }
 
 
         System.out.println("all done!");

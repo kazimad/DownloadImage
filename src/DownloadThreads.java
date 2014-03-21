@@ -9,8 +9,12 @@ public class DownloadThreads  extends Thread{
     static int countNameFiles = 0;
     static int countLinks = 0;
     static int countThreads = 1;
-    public static String linkDownload;
 
+
+
+    public String getLinkDownload(String linkDownload){
+        return linkDownload;
+    }
 
     @Override
     public void run() {
