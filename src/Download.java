@@ -6,49 +6,46 @@ import java.io.*;
 import java.net.SocketException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Download {
-    static Threads myThreadObject1;
-    static Threads myThreadObject2;
-    static Threads myThreadObject3;
-    static Threads myThreadObject4;
+    static DownloadThreads myThread1 = new DownloadThreads();
+    static String StringLink;
+//        static String nameDir = "cats/";
+//        static File myDir = new File(nameDir);
 
-    public static void main (String [] agrs) throws IOException {
-        myThreadObject1 = new Threads();
-        myThreadObject2 = new Threads();
-        myThreadObject3 = new Threads();
-        myThreadObject4 = new Threads();
-        Thread myThread1 = new Thread(myThreadObject1);
-        Thread myThread2 = new Thread(myThreadObject2);
-        Thread myThread3 = new Thread(myThreadObject3);
-        Thread myThread4 = new Thread(myThreadObject4);
-
-
-        String StringLink;
-        int countNameFiles = 1;
-        int countLinks = 1;
-        long start  = System.currentTimeMillis();
-
+    public static void main (String [] agrs) throws IOException, InterruptedException {
+        long start = System.currentTimeMillis();
+//        makeDir();
         BufferedReader br = new BufferedReader(new FileReader("links.txt"));                         // reads links from file
+        LinkedBlockingQueue <String> stringLinkQueue = new LinkedBlockingQueue();
 
-        myThread1.start();
-        myThread2.start();
-        myThread3.start();
-        myThread4.start();
+        while ((StringLink = br.readLine()) != null) {                 // пока буфер не пустой, присваиваем строку
+            stringLinkQueue.add(StringLink);
+        }
 
-        while ((StringLink = br.readLine())!=null){
 
-            String outFile = ("newfile_" + countNameFiles++ + ".jpg");
-            saveImage(StringLink, outFile,countLinks);
-            countLinks++;
+        while (!stringLinkQueue.isEmpty()){
+            DownloadThreads.linkDownload =  stringLinkQueue.take();           // transmits link to DownloadThreads
+
+                myThread1.run();
 
         }
+
+
 
         System.out.println("all done!");
         long finish = System.currentTimeMillis();
         System.out.println(finish - start);
-
+        System.out.println(stringLinkQueue.size());
     }
+
+//    public static void makeDir(){
+//        if(!myDir.exists()){
+//            myDir.mkdir();
+//        }
+//    }
+
 
     protected static void saveImage(String link, String outFile, int countLinks) throws IOException {
 
@@ -57,30 +54,24 @@ public class Download {
             InputStream is = url.openStream();
             OutputStream os = new FileOutputStream(outFile);
 
-
             int length;
-
             while ((length = is.read()) != -1) {
                 os.write(length);
             }
-
             is.close();
             os.close();
             System.out.println("File # " + countLinks + " is written");
         }
         catch (UnknownHostException q){
-            System.out.println("link #" + countLinks+ " is unavailable" );
-
+            System.out.println("link #" + countLinks+ " is unavailable1 " );
         }
         catch (SocketException qq) {
-            System.out.println("link #" + countLinks+ " is unavailable" );
+            System.out.println("link #" + countLinks+ " is unavailable2" );
         }
         catch (Exception qqq){
-            System.out.println("link #" + countLinks+ " is unavailable" );
+            System.out.println("link #" + countLinks+ " is unavailable3" );
         }
     }
-
-
 }
 //////
 
